@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de Métodos de Arrays</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .method-section {
+            margin: 20px 0;
+        }
+
+        .method-header {
+            background-color: #0d6efd;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">Ejemplos de Métodos de Arrays</h1>
+        <div id="examples"></div>
+    </div>
+
+    <script>
+        const examples = [
+            {
+                method: "1. Array.prototype.at()",
+                description: "Accede al elemento en una posición específica (soporta índices negativos).",
+                example: `let array = [10, 20, 30, 40, 50];\nlet result1 = array.at(1); // Devuelve 20\nlet result2 = array.at(-1); // Devuelve 50`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    let result1 = array.at(1);
+                    let result2 = array.at(-1);
+                    return `Resultado 1: ${result1}, Resultado 2: ${result2}`;
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de devolver el elemento de un array en una posición específica.
+                //     OCP: El método está diseñado para ser extendido en el futuro si fuera necesario, pero no requiere modificaciones.
+                //     LSP: Puede ser reemplazado por un método de subclase sin romper el comportamiento, ya que su implementación es genérica.
+                //     ISP: Este método no interactúa con interfaces externas, ya que es específico para arrays.
+                //     DIP: No depende de clases de alto nivel ni de bajo nivel, ya que solo utiliza la estructura básica de datos array.
+
+            },
+            {
+                method: "2. Array.prototype.concat()",
+                description: "Combina dos o más arrays.",
+                example: `let array1 = [10, 20];\nlet array2 = [30, 40];\nlet result = array1.concat(array2);`,
+                execute: () => {
+                    let array1 = [10, 20];
+                    let array2 = [30, 40];
+                    return array1.concat(array2);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de combinar arrays.
+                //     OCP: Este método podría extenderse para aceptar más tipos de datos en futuras versiones.
+                //     LSP: Se puede sustituir por una subclase que combine arrays de diferente manera sin cambiar el comportamiento esperado.
+                //     ISP: El método está bien encapsulado y no depende de otras interfaces.
+                //     DIP: El método no depende de clases concretas y está abierto a cambios.
+                // `
+
+            },
+            {
+                method: "3. Array.prototype.copyWithin()",
+                description: "Copia una parte del array dentro del mismo array.",
+                example: `let array = [10, 20, 30, 40];\narray.copyWithin(0, 2); // Devuelve [30, 40, 30, 40]`,
+                execute: () => {
+                    let array = [10, 20, 30, 40];
+                    array.copyWithin(0, 2);
+                    return array;
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de copiar parte de un array dentro del mismo array.
+                //     OCP: El método podría ser extendido en el futuro para copiar partes de más tipos de estructuras.
+                //     LSP: Puede ser reemplazado por una subclase que implemente una lógica diferente sin cambiar el comportamiento.
+                //     ISP: No depende de ninguna interfaz externa, solo trabaja con arrays.
+                //     DIP: El método es flexible y no depende de clases de alto nivel, se ajusta bien a diferentes contextos.
+                // `
+
+
+
+
+            },
+            {
+                method: "4. Array.prototype.entries()",
+                description: "Crea un iterador de pares [índice, valor].",
+                example: `let array = [10, 20, 30, 40, 50];\nfor (const [index, value] of array.entries()) {\n  console.log(index, value);\n}`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    let result = [];
+                    for (const [index, value] of array.entries()) {
+                        result.push([index, value]);
+                    }
+                    return result;
+                }
+                // SOLID: `
+                //     SRP: El método genera pares [índice, valor] para el array, haciendo una única tarea.
+                //     OCP: Podría extenderse para aceptar otros tipos de estructuras de datos, como objetos o mapas.
+                //     LSP: Se puede reemplazar por un método heredado que genere iteradores más complejos sin romper el contrato de la función.
+                //     ISP: No utiliza ninguna interfaz externa.
+                //     DIP: El método no depende de clases específicas, está implementado para arrays.
+                // `
+
+            },
+            {
+                method: "5. Array.prototype.every()",
+                description: "Verifica si todos los elementos cumplen una condición.",
+                example: `let array = [10, 20, 30, 40];\nlet result = array.every(n => n > 20); // Devuelve false`,
+                execute: () => {
+                    let array = [10, 20, 30, 40];
+                    return array.every(n => n > 20);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de verificar si todos los elementos cumplen una condición.
+                //     OCP: Puede ser extendido para incluir más condiciones o tipos de datos sin modificaciones.
+                //     LSP: Puede ser sustituido por una subclase que haga la verificación de otra manera sin afectar el comportamiento.
+                //     ISP: No interactúa con interfaces externas, es independiente.
+                //     DIP: El método está basado en la estructura básica de datos array, sin dependencias de clases concretas.
+                // `
+
+
+
+
+            },
+            {
+                method: "6. Array.prototype.fill()",
+                description: "Rellena el array con un valor desde un índice inicial a uno final.",
+                example: `let array = [10, 20, 30, 40, 50];\narray.fill(0, 1, 3); // Devuelve [10, 0, 0, 40, 50]`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    array.fill(0, 1, 3);
+                    return array;
+                }
+                // SOLID: `
+                //     SRP: Este método tiene una única responsabilidad: rellenar el array con un valor específico.
+                //     OCP: El comportamiento podría extenderse en el futuro para aceptar valores de diferentes tipos de datos.
+                //     LSP: Puede ser reemplazado por una subclase que implemente una lógica diferente de relleno sin afectar el comportamiento general.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: Este método no tiene dependencias de clases de alto o bajo nivel, es completamente independiente.
+                // `
+
+            },
+            {
+                method: "7. Array.prototype.filter()",
+                description: "Crea un nuevo array con los elementos que cumplan una condición.",
+                example: `let array = [10, 20, 30, 40, 50];\nlet result = array.filter(n => n > 30); // Devuelve [40, 50]`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    return array.filter(n => n > 30);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de filtrar los elementos de un array según una condición.
+                //     OCP: Puede extenderse para aceptar otros tipos de criterios o transformaciones.
+                //     LSP: Puede ser reemplazado por una subclase que filtre de manera diferente sin afectar el comportamiento esperado.
+                //     ISP: El método es autónomo y no depende de interfaces externas.
+                //     DIP: El método no depende de ninguna clase en particular, solo de arrays.
+                // `
+
+            },
+            {
+                method: "8. Array.prototype.find()",
+                description: "Devuelve el primer elemento que cumpla una condición.",
+                example: `let array = [10, 20, 30, 40, 50];\nlet result = array.find(n => n > 30); // Devuelve 40`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    return array.find(n => n > 30);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de encontrar un solo elemento que cumpla con una condición.
+                //     OCP: Puede extenderse para trabajar con otros tipos de estructuras de datos.
+                //     LSP: El método puede ser reemplazado por una subclase que implemente una lógica diferente sin alterar el comportamiento esperado.
+                //     ISP: No depende de interfaces externas, es independiente.
+                //     DIP: Este método no depende de clases específicas, sino de arrays.
+                // `
+
+            },
+            {
+                method: "9. Array.prototype.findIndex()",
+                description: "Devuelve el índice del primer elemento que cumpla una condición.",
+                example: `let array = [10, 20, 30, 40, 50];\nlet result = array.findIndex(n => n > 30); // Devuelve 3`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    return array.findIndex(n => n > 30);
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de buscar el índice del primer elemento que cumpla una condición dada.
+                //     OCP: Puede extenderse para aplicar diferentes condiciones de búsqueda.
+                //     LSP: Puede ser reemplazado por otro método que realice búsquedas de manera similar sin afectar el comportamiento.
+                //     ISP: No depende de interfaces complejas, solo realiza la búsqueda del índice con la condición proporcionada.
+                //     DIP: No depende de clases específicas, utiliza el array como estructura básica para realizar la búsqueda.
+                // `
+
+            },
+            {
+                method: "10. Array.prototype.findLast()",
+                description: "Devuelve el último elemento que cumpla una condición.",
+                example: `let array = [10, 20, 30, 40, 50];\nlet result = array.findLast(n => n > 30); // Devuelve 50`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    return array.findLast(n => n > 30);
+                }
+                // SOLID: `
+                //     SRP: El método tiene la única responsabilidad de encontrar el índice de un elemento que cumple con la condición.
+                //     OCP: Puede extenderse para aceptar otros tipos de criterios de búsqueda.
+                //     LSP: Puede ser sustituido por un método derivado sin alterar el comportamiento general.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: El método no depende de clases concretas ni estructuras complejas.
+                // `
+
+            },
+            {
+                method: "11. Array.prototype.findLastIndex()",
+                description: "Devuelve el índice del último elemento que cumpla una condición.",
+                example: `let array = [10, 20, 30, 40, 50];\nlet result = array.findLastIndex(n => n > 30); // Devuelve 4`,
+                execute: () => {
+                    let array = [10, 20, 30, 40, 50];
+                    return array.findLastIndex(n => n > 30);
+                }
+                // SOLID: `
+                //     SRP: El método tiene la responsabilidad de iterar sobre los elementos de un array y ejecutar una función.
+                //     OCP: Puede ser extendido para ejecutar otras funciones o manipular de distintas formas los elementos del array.
+                //     LSP: Puede ser sustituido por un método que ejecute una lógica diferente sin alterar el comportamiento esperado.
+                //     ISP: Este método no depende de interfaces externas.
+                //     DIP: El método no depende de clases concretas, solo de arrays.
+                // `
+
+            },
+            {
+                method: "12. Array.prototype.flat()",
+                description: "Aplana un array multidimensional.",
+                example: `let array = [1, [2, [3, 4]]];\nlet result = array.flat(2); // Devuelve [1, 2, 3, 4]`,
+                execute: () => {
+                    let array = [1, [2, [3, 4]]];
+                    return array.flat(2);
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de aplanar un array multidimensional.
+                //     OCP: Puede extenderse para permitir mayor profundidad de aplanamiento o aplanar sólo un nivel específico.
+                //     LSP: Puede ser reemplazado por otros métodos de aplanamiento sin cambiar el comportamiento global.
+                //     ISP: No depende de interfaces externas, solo realiza el aplanamiento del array.
+                //     DIP: No depende de clases específicas, sólo utiliza el array como estructura de datos básica.
+                // `
+
+            },
+            {
+                method: "13. Array.prototype.flatMap()",
+                description: "Aplica una función y aplana el resultado.",
+                example: `let array = [1, 2, 3];\nlet result = array.flatMap(n => [n, n * 2]); // Devuelve [1, 2, 2, 4, 3, 6]`,
+                execute: () => {
+                    let array = [1, 2, 3];
+                    return array.flatMap(n => [n, n * 2]);
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de aplicar una función a cada elemento y luego aplanar el resultado.
+                //     OCP: Puede ser extendido para aceptar diferentes funciones de transformación o aplanamiento más complejos.
+                //     LSP: Puede ser sustituido por otros métodos que transformen y aplana el array sin alterar su comportamiento general.
+                //     ISP: No depende de interfaces complejas, solo realiza la transformación y el aplanamiento.
+                //     DIP: No depende de clases específicas, utiliza el array como estructura base y aplica una función proporcionada por el usuario.
+                // `
+
+            },
+            {
+                method: "14. Array.prototype.forEach()",
+                description: "Ejecuta una función por cada elemento.",
+                example: `let array = [10, 20, 30];\narray.forEach(n => console.log(n));`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    let result = [];
+                    array.forEach(n => result.push(n));
+                    return result;
+                }
+                // SOLID: `
+                //     SRP: El método tiene la responsabilidad de iterar sobre los elementos de un array y ejecutar una función.
+                //     OCP: Puede ser extendido para ejecutar otras funciones o manipular de distintas formas los elementos del array.
+                //     LSP: Puede ser sustituido por un método que ejecute una lógica diferente sin alterar el comportamiento esperado.
+                //     ISP: Este método no depende de interfaces externas.
+                //     DIP: El método no depende de clases concretas, solo de arrays.
+                // `
+
+            },
+            {
+                method: "15. Array.prototype.includes()",
+                description: "Comprueba si el array contiene un valor.",
+                example: `let array = [10, 20, 30];\nlet result = array.includes(20); // Devuelve true`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.includes(20);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de verificar si un elemento está presente en el array.
+                //     OCP: Este método podría extenderse para verificar elementos de otros tipos de estructuras de datos.
+                //     LSP: Puede ser reemplazado por un método que implemente una lógica diferente para verificar la existencia de elementos.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases concretas, es independiente.
+                // `
+
+            },
+            {
+                method: "16. Array.prototype.indexOf()",
+                description: "Devuelve el índice del primer elemento que coincida.",
+                example: `let array = [10, 20, 30];\nlet result = array.indexOf(20); // Devuelve 1`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.indexOf(20);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de encontrar el índice de un elemento específico.
+                //     OCP: Puede extenderse para buscar elementos de otros tipos de datos.
+                //     LSP: Puede ser reemplazado por una subclase que implemente una búsqueda diferente sin alterar el comportamiento esperado.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: Este método no depende de clases o estructuras concretas, solo trabaja con arrays.
+                // `
+
+            },
+            {
+                method: "17. Array.prototype.join()",
+                description: "Une los elementos del array en una cadena.",
+                example: `let array = [10, 20, 30];\nlet result = array.join(", "); // Devuelve "10, 20, 30"`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.join(", ");
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de unir los elementos de un array en una cadena.
+                //     OCP: Podría extenderse para unir otros tipos de elementos o para agregar caracteres especiales entre ellos.
+                //     LSP: Puede ser reemplazado por una subclase que cambie cómo se realizan las uniones sin alterar el comportamiento general.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases o estructuras complejas.
+                // `
+
+            },
+            {
+                method: "18. Array.prototype.keys()",
+                description: "Devuelve un iterador de las claves (índices).",
+                example: `let array = [10, 20, 30];\nfor (const key of array.keys()) {\n  console.log(key);\n}`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    let result = [];
+                    for (const key of array.keys()) {
+                        result.push(key);
+                    }
+                    return result;
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de generar las claves del array.
+                //     OCP: Puede ser extendido para adaptarse a otros tipos de iteradores o estructuras de datos.
+                //     LSP: Puede ser sustituido por un iterador que maneje otro tipo de claves sin alterar el comportamiento.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases específicas, trabaja con cualquier array.
+                // `
+
+            },
+            {
+                method: "19. Array.prototype.lastIndexOf()",
+                description: "Devuelve el índice del último elemento que coincida.",
+                example: `let array = [10, 20, 30, 20];\nlet result = array.lastIndexOf(20); // Devuelve 3`,
+                execute: () => {
+                    let array = [10, 20, 30, 20];
+                    return array.lastIndexOf(20);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de encontrar la última aparición de un elemento en el array.
+                //     OCP: El comportamiento podría extenderse para otros tipos de búsqueda en diferentes estructuras de datos.
+                //     LSP: Puede ser reemplazado por un método que implemente una búsqueda diferente sin cambiar el comportamiento esperado.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases concretas.
+                // `
+
+            },
+            {
+                method: "20. Array.prototype.map()",
+                description: "Crea un nuevo array aplicando una función a cada elemento.",
+                example: `let array = [10, 20, 30];\nlet result = array.map(n => n * 2); // Devuelve [20, 40, 60]`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.map(n => n * 2);
+                }
+                // SOLID: `
+                //     SRP: Este método tiene la responsabilidad de transformar cada elemento de un array según una función dada.
+                //     OCP: Puede ser extendido para realizar transformaciones más complejas o en diferentes tipos de datos.
+                //     LSP: Puede ser reemplazado por una versión especializada de map sin afectar el comportamiento.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases específicas, funciona con cualquier array.
+                // `
+
+            },
+            {
+                method: "21.Array.prototype.pop()",
+                description: "Elimina el último elemento de un array y lo devuelve.",
+                example: `let array = [40, 0, 0, 40, 50]; let result = array.pop(); // Elimina 50`,
+                execute: () => {
+                    let array = [40, 0, 0, 40, 50];
+                    array.pop(); // Elimina el último elemento
+                    return array; // Devuelve el array modificado
+                }
+            },
+            // **SRP (Single Responsibility Principle)**: `pop()` tiene la responsabilidad única de eliminar el último elemento de un array.
+            // **OCP (Open/Closed Principle)**: Es abierto para la extensión, ya que podemos manipular la manera en que se maneja el array antes o después de usarlo, pero el método sigue siendo cerrado a modificaciones.
+
+            {
+                method: "22.Array.prototype.push()",
+                description: "Agrega elementos al final del array.",
+                example: `let array = [40, 0, 0, 40]; array.push(60); // Agrega 60 al final`,
+                execute: () => {
+                    let array = [40, 0, 0, 40];
+                    array.push(60); // Agrega 60 al final
+                    return array; // Devuelve el array modificado
+                }
+                // Principios SOLID:
+                // 1. **SRP**: Realiza una sola tarea (agregar un elemento al final).
+                // 2. **OCP**: No modificable, pero extendible en un contexto controlado.
+                // 3. **LSP**: Comportamiento predecible con cualquier tipo de array.
+                // 4. **ISP**: Interfaz sencilla, sin requerir más funcionalidades.
+                // 5. **DIP**: No depende de ninguna clase externa.
+            },
+            {
+                method: "23. Array.prototype.reduce()",
+                description: "Aplica una función acumulativa a los elementos.",
+                example: `let array = [10, 20, 30];\nlet result = array.reduce((acc, n) => acc + n, 0); // Devuelve 60`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.reduce((acc, n) => acc + n, 0);
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de aplicar una función acumulativa a los elementos de un array.
+                //     OCP: Puede ser extendido para realizar acumulaciones complejas o con diferentes tipos de operaciones.
+                //     LSP: Puede ser reemplazado por otros métodos de acumulación sin alterar el comportamiento global.
+                //     ISP: No depende de interfaces externas, solo se enfoca en la acumulación de elementos en el array.
+                //     DIP: No depende de clases específicas, utiliza el array y una función de reducción proporcionada por el usuario.
+                // `
+
+            },
+            {
+                method: "24. Array.prototype.reduceRight()",
+                description: "Aplica una función acumulativa de derecha a izquierda.",
+                example: `let array = [10, 20, 30];\nlet result = array.reduceRight((acc, n) => acc + n, 0); // Devuelve 60`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.reduceRight((acc, n) => acc + n, 0);
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de aplicar una función acumulativa a los elementos de un array, pero en orden inverso.
+                //     OCP: Puede extenderse para manejar otras operaciones acumulativas de derecha a izquierda.
+                //     LSP: Puede ser reemplazado por otros métodos que implementen la acumulación en dirección contraria.
+                //     ISP: No depende de interfaces complejas, sólo maneja el array y la operación de acumulación en reversa.
+                //     DIP: No depende de clases específicas, usa el array como estructura de datos y la función de acumulación proporcionada.
+                // `
+
+            },
+            {
+                method: "25. Array.prototype.reverse()",
+                description: "Invierte el orden de los elementos en el array.",
+                example: `let array = [10, 20, 30];\nlet result = array.reverse(); // Devuelve [30, 20, 10]`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.reverse();
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de invertir el orden de los elementos de un array.
+                //     OCP: Puede extenderse para invertir el array de manera más compleja (por ejemplo, con criterios adicionales).
+                //     LSP: Puede ser reemplazado por otro método que realice la inversión sin afectar el comportamiento general.
+                //     ISP: No depende de interfaces externas, realiza únicamente la operación de inversión.
+                //     DIP: No depende de clases específicas, solo utiliza el array como estructura de datos.
+                // `
+
+            },
+            {
+                method: "26.Array.prototype.shift()",
+                description: "Elimina el primer elemento del array y lo devuelve.",
+                example: `let array = [60, 40, 0, 0]; let result = array.shift(); // Elimina 60`,
+                execute: () => {
+                    let array = [60, 40, 0, 0];
+                    array.shift(); // Elimina el primer elemento
+                    return array; // Devuelve el array modificado
+                }
+                // Principios SOLID:
+                // 1. **SRP**: Realiza una sola tarea (eliminar el primer elemento).
+                // 2. **OCP**: Funcionalidad cerrada para modificación, pero abierta a extensión.
+                // 3. **LSP**: Funciona de igual manera con cualquier tipo de array.
+                // 4. **ISP**: Solo realiza una acción específica, sin interfaces complejas.
+                // 5. **DIP**: No depende de ninguna clase o módulo externo.
+            },
+            {
+                method: "27. Array.prototype.slice()",
+                description: "Devuelve una copia superficial de una porción del array.",
+                example: `let array = [10, 20, 30, 40];\nlet result = array.slice(1, 3); // Devuelve [20, 30]`,
+                execute: () => {
+                    let array = [10, 20, 30, 40];
+                    return array.slice(1, 3);
+                }
+                //     SOLID: `
+                //     SRP: Este método tiene la responsabilidad de devolver una porción del array original.
+                //     OCP: Puede extenderse para trabajar con cualquier otro tipo de colección o hacer más flexibles los índices.
+                //     LSP: Puede ser sustituido por un método que realice cortes de arrays sin alterar el comportamiento esperado.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases concretas.
+                // `
+
+
+            },
+            {
+                method: "28. Array.prototype.some()",
+                description: "Verifica si algún elemento cumple una condición.",
+                example: `let array = [10, 20, 30, 40];\nconsole.log(array.some(n => n > 30)); // true`,
+                execute: () => {
+                    let array = [10, 20, 30, 40];
+                    return array.some(n => n > 30); // Devuelve true
+                }
+            },
+            // Cumple con **SRP (Single Responsibility Principle)**: El método `some()` tiene una única responsabilidad, verificar si al menos un elemento cumple con una condición específica.
+            // Cumple con **OCP (Open/Closed Principle)**: Este método es abierto para la extensión porque puedes personalizar la función de prueba, pero cerrado para la modificación del comportamiento básico.
+
+            {
+                method: "29. Array.prototype.sort()",
+                description: "Ordena los elementos del array.",
+                example: `let array = [40, 10, 30];\narray.sort((a, b) => b - a); // Devuelve [40, 30, 10]`,
+                execute: () => {
+                    let array = [40, 10, 30];
+                    array.sort((a, b) => b - a); // Ordena de mayor a menor
+                    return array; // Devuelve [40, 30, 10]
+                }
+            },
+            // Cumple con **OCP (Open/Closed Principle)**: Este método está abierto a la extensión, ya que puedes proporcionar tu propia función de comparación para personalizar el orden del array.
+            // Cumple con **SRP (Single Responsibility Principle)**: La responsabilidad única de este método es ordenar los elementos de un array sin realizar ninguna otra tarea.
+
+            {
+                method: "30.Array.prototype.splice()",
+                description: "Agrega, elimina o reemplaza elementos en el array.",
+                example: `let array = [40, 0, 0, 40];array.splice(1, 2, 100, 200); // Reemplaza los elementos desde el índice 1`,
+                execute: () => {
+                    let array = [40, 0, 0, 40];
+                    array.splice(1, 2, 100, 200); // Elimina 2 elementos desde el índice 1 y agrega 100, 200
+                    return array; // Devuelve el array modificado
+                }
+            },
+            // Cumple con **SRP (Single Responsibility Principle)**: El método `splice()` se encarga de modificar el array de una forma específica, ya sea agregando, eliminando o reemplazando elementos. Esta es su única responsabilidad.
+            // Cumple con **OCP (Open/Closed Principle)**: Puedes extender su funcionalidad con más parámetros, pero el comportamiento base sigue siendo cerrado para modificaciones.
+
+            {
+                method: "31. Array.prototype[Symbol.iterator]()",
+                description: "Iterador de valores (implícito en bucles for...of).",
+                example: `let array = [10, 20, 30];\nfor (const value of array) { console.log(value); }`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    let result = [];
+                    for (const value of array) {
+                        result.push(value); // Pushing values into the result array
+                    }
+                    return result; // Devuelve el array de resultados
+                }
+            },
+            // Cumple con **OCP (Open/Closed Principle)**: Al ser un iterador, puedes extenderlo para iterar sobre otros objetos o estructuras sin necesidad de modificar el comportamiento del array.
+            // Cumple con **SRP (Single Responsibility Principle)**: Su responsabilidad es únicamente iterar sobre los elementos del array sin hacer otras operaciones.
+
+            {
+                method: "32. Array.prototype.toLocaleString()",
+                description: "Convierte los elementos a cadena con formato regional.",
+                example: `let array = [40, 100, 200, 0];\nconsole.log(array.toLocaleString()); // Devuelve "40,100,200,0"`,
+                execute: () => {
+                    let array = [40, 100, 200, 0];
+                    return array.toLocaleString(); // Devuelve "40,100,200,0"
+                }
+            },
+            // Cumple con **SRP (Single Responsibility Principle)**: El único propósito de `toLocaleString()` es convertir los elementos del array en una cadena de texto con un formato regional.
+            // Cumple con **OCP (Open/Closed Principle)**: Puedes extender el comportamiento de este método proporcionando diferentes configuraciones de localización, lo que lo hace abierto para la extensión sin modificar el código base.
+
+            {
+                method: "33. Array.prototype.toReversed()",
+                description: "Devuelve una copia del array invertida (sin modificar el original).",
+                example: `let array = [40, 100, 200, 0];\nconsole.log(array.toReversed()); // Devuelve [0, 200, 100, 40]`,
+                execute: () => {
+                    let array = [40, 100, 200, 0];
+                    return array.toReversed(); // Devuelve una copia invertida
+                }
+            },
+            // Cumple con **SRP (Single Responsibility Principle)**: Este método tiene una única responsabilidad, que es devolver una nueva versión del array invertida sin alterar el array original.
+            // Cumple con **OCP (Open/Closed Principle)**: Puedes extender el comportamiento de este método sin modificar la implementación original del array.
+
+            {
+                method: "34. Array.prototype.toSorted()",
+                description: "Devuelve una copia del array ordenada sin modificar el original.",
+                example: `let array = [40, 10, 30];\nlet result = array.toSorted(); // Devuelve [10, 30, 40]`,
+                execute: () => {
+                    let array = [40, 10, 30];
+                    return array.toSorted();
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de devolver una copia ordenada de un array sin modificar el array original.
+                //     OCP: Puede extenderse para aceptar diferentes criterios de ordenación (por ejemplo, orden ascendente o descendente).
+                //     LSP: Puede ser sustituido por otros métodos de ordenación que devuelvan una copia del array sin afectar el comportamiento general.
+                //     ISP: No depende de interfaces externas, solo manipula el array para devolver una versión ordenada.
+                //     DIP: No depende de clases específicas, solo utiliza el array como estructura de datos básica.
+                // `
+            },
+            {
+                method: "35. Array.prototype.toSpliced()",
+                description: "Devuelve una copia del array con elementos eliminados y reemplazados sin modificar el original.",
+                example: `let array = [10, 20, 30, 40];\nlet result = array.toSpliced(1, 1, 300); // Devuelve [10, 300, 30, 40]`,
+                execute: () => {
+                    let array = [10, 20, 30, 40];
+                    return array.toSpliced(1, 1, 300);
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de devolver una copia del array con ciertos elementos eliminados o reemplazados, sin alterar el array original.
+                //     OCP: Puede extenderse para realizar operaciones de sustitución más complejas (eliminar múltiples elementos o insertar más elementos).
+                //     LSP: Puede ser reemplazado por otro método de modificación de arrays que devuelvan una nueva versión sin alterar el original.
+                //     ISP: No depende de interfaces externas, se encarga de manipular el array de manera aislada.
+                //     DIP: No depende de clases específicas, solo utiliza la estructura de datos básica (arrays).
+                // `
+            },
+            {
+                method: "36. Array.prototype.toString()",
+                description: "Convierte el array en una cadena representando los elementos.",
+                example: `let array = [10, 20, 30];\nlet result = array.toString(); // Devuelve '10,20,30'`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.toString();
+                }
+                //     SOLID: `
+                //     SRP: Este método tiene la responsabilidad de convertir los elementos de un array en una cadena simple.
+                //     OCP: Puede ser extendido para formatear la cadena de diferentes maneras o agregar delimitadores personalizados.
+                //     LSP: Puede ser reemplazado por un método que convierta el array en una cadena de otra forma sin cambiar el comportamiento.
+                //     ISP: No depende de interfaces externas.
+                //     DIP: No depende de clases concretas, solo de arrays.
+                // `
+
+            },
+            {
+                method: "37. Array.prototype.unshift()",
+                description: "Agrega elementos al inicio del array.",
+                example: `let array = [40, 0, 0, 40];array.unshift(10); // Agrega 10 al inicio`,
+                execute: () => {
+                    let array = [40, 0, 0, 40];
+                    array.unshift(10); // Agrega 10 al inicio
+                    return array; // Devuelve el array modificado
+                }
+                // Principios SOLID:
+                // 1. **SRP**: Realiza una sola tarea (eliminar el primer elemento).
+                // 2. **OCP**: Funcionalidad cerrada para modificación, pero abierta a extensión.
+                // 3. **LSP**: Funciona de igual manera con cualquier tipo de array.
+                // 4. **ISP**: Solo realiza una acción específica, sin interfaces complejas.
+                // 5. **DIP**: No depende de ninguna clase o módulo externo.
+            },
+            {
+                method: "38. Array.prototype.values()",
+                description: "Devuelve un iterador de los valores de los elementos.",
+                example: `let array = [10, 20, 30];\nfor (const value of array.values()) {\n  console.log(value);\n}`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    let result = [];
+                    for (const value of array.values()) {
+                        result.push(value);
+                    }
+                    return result;
+                }
+                //             SOLID: `
+                //     SRP: Este método tiene la responsabilidad de devolver un iterador sobre los valores de un array, permitiendo iterar sobre ellos de forma sencilla.
+                //     OCP: Puede extenderse para personalizar el iterador o filtrarlo según ciertas condiciones.
+                //     LSP: Puede ser sustituido por otros métodos de iteración que devuelvan un iterador sin afectar el comportamiento de la iteración.
+                //     ISP: No depende de interfaces externas, simplemente proporciona acceso a los valores de los elementos del array.
+                //     DIP: No depende de clases específicas, solo de la estructura básica del array.
+                // `
+            },
+            {
+                method: "39. Array.prototype.with()",
+                description: "Devuelve una copia modificada del array con un elemento en un índice especificado.",
+                example: `let array = [10, 20, 30];\nlet result = array.with(2, 500); // Devuelve [10, 20, 500]`,
+                execute: () => {
+                    let array = [10, 20, 30];
+                    return array.with(2, 500);
+                }
+            }
+            //         SOLID: `
+            //     SRP: Este método tiene la responsabilidad de devolver una copia modificada del array con un cambio en un índice específico.
+            //     OCP: Puede extenderse para hacer modificaciones más complejas, como aplicar funciones a los elementos de forma condicional.
+            //     LSP: Puede ser reemplazado por otro método de modificación del array sin afectar el comportamiento general de la operación.
+            //     ISP: No depende de interfaces externas, simplemente manipula el array internamente.
+            //     DIP: No depende de clases específicas, se basa en la estructura del array.
+            // `
+        ];
+
+        const container = document.getElementById("examples");
+
+        examples.forEach(({ method, description, example, execute }, index) => {
+            const section = document.createElement("div");
+            section.className = "method-section";
+            section.innerHTML = `
+                <div class="method-header"><h2>${method}</h2></div>
+                <p><strong>Descripción:</strong> ${description}</p>
+                <pre><code>${example}</code></pre>
+                <button class="btn btn-primary" onclick="showResult(${index})">Ejecutar Ejemplo</button>
+                <div id="result-${index}" class="mt-3 alert alert-secondary" style="display:none;"></div>
+            `;
+            container.appendChild(section);
+        });
+
+        function showResult(index) {
+            const resultElement = document.getElementById(`result-${index}`);
+            const { execute } = examples[index];
+            resultElement.style.display = "block";
+            resultElement.textContent = execute();
+        }
+    </script>
+</body>
+
+</html>
